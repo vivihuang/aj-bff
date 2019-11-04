@@ -1,1 +1,1 @@
-rootProject.name = "actionservice"
+rootProject.name = "georgia"

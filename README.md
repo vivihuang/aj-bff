@@ -11,9 +11,9 @@ Spring Boot、Gradle、Docker
     ```
 1. build Docker image:
     ```shell script
-    docker build -t actionservice .
+    docker build -t aj/georgia .
     ```       
 1. run Docker image:
     ```shell script
-    docker run -p 8080:8080 -t actionservice
+    docker run -p 8089:8089 -t aj/georgia
     ```
