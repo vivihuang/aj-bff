@@ -1,4 +1,4 @@
-package com.askjamie.latvia.hello
+package com.askjamie.georgia.hello
 
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam

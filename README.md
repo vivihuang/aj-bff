@@ -1,5 +1,5 @@
 # Introduction
-This project provides business-related services for Rasa.
+This project provides non-business BFF services for Rasa.
 
 # Spring Boot、Gradle、Docker
 Spring Boot、Gradle、Docker
