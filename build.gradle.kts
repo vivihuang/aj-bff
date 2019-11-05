@@ -1,8 +1,15 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+buildscript {
+	repositories {
+		jcenter()
+	}
+}
+
 plugins {
 	id("org.springframework.boot") version "2.2.0.RELEASE"
 	id("io.spring.dependency-management") version "1.0.8.RELEASE"
+	id("io.gitlab.arturbosch.detekt").version("1.1.1")
 	kotlin("jvm") version "1.3.50"
 	kotlin("plugin.spring") version "1.3.50"
 }
@@ -13,6 +20,7 @@ java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
 	mavenCentral()
+	jcenter()
 }
 
 dependencies {
@@ -34,4 +42,14 @@ tasks.withType<KotlinCompile> {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
 		jvmTarget = "1.8"
 	}
+}
+
+tasks.withType<io.gitlab.arturbosch.detekt.Detekt> {
+	// include("**/special/package/**") // only analyze a sub package inside src/main/kotlin
+	// exclude("**/special/package/internal/**") // but exclude our legacy internal package
+}
+
+detekt {
+	toolVersion = "1.1.1"
+	input = files("src/main/kotlin")
 }
