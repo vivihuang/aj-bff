@@ -4,5 +4,5 @@ VOLUME /tmp
 ARG JAVA_OPTS
 ENV JAVA_OPTS=$JAVA_OPTS
 ADD build/libs/georgia*.jar georgia.jar
-EXPOSE 8089
+EXPOSE 8080
 CMD ["java", "-jar", "georgia.jar"]

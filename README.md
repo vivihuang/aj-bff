@@ -15,5 +15,5 @@ Spring Boot、Gradle、Docker
     ```       
 1. run Docker image:
     ```shell script
-    docker run -p 8089:8089 -t aj/georgia
+    docker run -p 8089:8080 -t aj/georgia
     ```
