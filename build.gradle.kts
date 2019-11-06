@@ -10,8 +10,11 @@ plugins {
 	id("org.springframework.boot") version "2.2.0.RELEASE"
 	id("io.spring.dependency-management") version "1.0.8.RELEASE"
 	id("io.gitlab.arturbosch.detekt").version("1.1.1")
+	
 	kotlin("jvm") version "1.3.50"
 	kotlin("plugin.spring") version "1.3.50"
+	
+	idea
 }
 
 group = "com.askjamie"
@@ -24,24 +27,34 @@ repositories {
 }
 
 dependencies {
+	implementation(kotlin("stdlib-jdk8"))
+	implementation(kotlin("reflect"))
+
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
+		exclude(module = "junit")
+		exclude(group = "org.mockito")
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}
+	testImplementation("io.mockk:mockk:1.9.3")
+	testImplementation("com.ninja-squad:springmockk:1.1.3")
 }
 
-tasks.withType<Test> {
-	useJUnitPlatform()
-}
-
+/**
+ * configure plugin and tasks
+ */
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
 		jvmTarget = "1.8"
 	}
+}
+
+tasks.withType<Test> {
+	useJUnitPlatform()
 }
 
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt> {
@@ -52,4 +65,35 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt> {
 detekt {
 	toolVersion = "1.1.1"
 	input = files("src/main/kotlin")
+}
+
+val sourceSets = the<SourceSetContainer>()
+
+sourceSets {
+	create("apiTest") {
+		java.srcDir("src/apiTest/kotlin")
+		resources.srcDir("src/apiTest/resources")
+		compileClasspath += sourceSets["main"].output + configurations["testRuntimeClasspath"]
+		runtimeClasspath += output + compileClasspath
+	}
+}
+
+tasks.register<Test>("apiTest") {
+	description = "Runs the api tests."
+	group = "verification"
+	testClassesDirs = sourceSets["apiTest"].output.classesDirs
+	classpath = sourceSets["apiTest"].runtimeClasspath
+	mustRunAfter(tasks["test"])
+}
+
+tasks.named("check") {
+	dependsOn("apiTest")
+}
+
+idea {
+	module {
+		outputDir = file("$buildDir/classes/main")
+		testOutputDir = file("$buildDir/classes/test")
+		jdkName = "1.8"
+	}
 }
