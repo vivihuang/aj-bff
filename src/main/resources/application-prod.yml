@@ -1,0 +1,2 @@
+rasa-server:
+  url: http://rasa-server:5005
