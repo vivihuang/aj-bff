@@ -1,8 +1,11 @@
-
 FROM openjdk:8-jdk-alpine
 VOLUME /tmp
+
 ARG JAVA_OPTS
 ENV JAVA_OPTS=$JAVA_OPTS
-ADD build/libs/georgia*.jar georgia.jar
+ARG IMAGE_VERSION
+ENV IMAGE_VERSION=$IMAGE_VERSION
+
+ADD build/libs/latvia*.jar latvia.jar
 EXPOSE 8080
-CMD ["java", "-jar", "georgia.jar"]
+CMD ["java","-Dimage.version=${IMAGE_VERSION}", "-jar", "latvia.jar"]
