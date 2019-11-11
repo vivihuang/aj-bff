@@ -45,9 +45,9 @@ docker build -t aj/georgia .
 ```       
 > set image version by `--build-arg IMAGE_VERSION=<image version>`
 
-- run ocker image
+- run docker image
 ```
-docker run -p 8088:8080 aj/georgia
+docker run -p 8089:8080 aj/georgia
 ```
 > set spring profile by `-e "SPRING_PROFILES_ACTIVE=<profile>"`
 
