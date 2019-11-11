@@ -8,6 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients
 @EnableFeignClients
 class Application
 
+@SuppressWarnings("SpreadOperator")
 fun main(args: Array<String>) {
     SpringApplication.run(Application::class.java, *args)
 }

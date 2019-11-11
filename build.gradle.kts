@@ -43,6 +43,7 @@ dependencies {
     }
     testImplementation("io.mockk:mockk:1.9.3")
     testImplementation("com.ninja-squad:springmockk:1.1.3")
+    testImplementation("org.assertj:assertj-core:3.14.0")
 }
 
 dependencyManagement {
