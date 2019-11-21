@@ -23,7 +23,7 @@ internal class MessageControllerTest(@Autowired private val mockMvc: MockMvc) {
 
     @BeforeEach
     internal fun setUp() {
-        every { messageService.message(any(), any()) } returns emptyList()
+        every { messageService.messageToRasa(any(), any()) } returns emptyList()
     }
 
     @AfterEach
@@ -36,14 +36,14 @@ internal class MessageControllerTest(@Autowired private val mockMvc: MockMvc) {
         val command = SendMessageCommand(message = "message")
 
         mockMvc.perform(
-                post("/api/message")
+                post("/api/message/rasa")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jacksonObjectMapper().writeValueAsString(command))
         )
                 .andExpect(MockMvcResultMatchers.status().isOk)
 
         verify(exactly = 1) {
-            messageService.message(isNull(inverse = true), command.message)
+            messageService.messageToRasa(isNull(inverse = true), command.message)
         }
     }
 
@@ -52,14 +52,14 @@ internal class MessageControllerTest(@Autowired private val mockMvc: MockMvc) {
         val command = SendMessageCommand(sender = "sender", message = "message")
 
         mockMvc.perform(
-                post("/api/message")
+                post("/api/message/rasa")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jacksonObjectMapper().writeValueAsString(command))
         )
                 .andExpect(MockMvcResultMatchers.status().isOk)
 
         verify(exactly = 1) {
-            messageService.message(command.sender!!, command.message)
+            messageService.messageToRasa(command.sender!!, command.message)
         }
     }
 }

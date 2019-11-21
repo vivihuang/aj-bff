@@ -1,2 +1,4 @@
 rasa:
   url: http://localhost:5005
+dialog-flow:
+  url: http://localhost:8087

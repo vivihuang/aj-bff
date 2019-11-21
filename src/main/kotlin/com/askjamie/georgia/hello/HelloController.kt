@@ -17,7 +17,7 @@ class HelloController(private val environment: Environment) {
 
     @GetMapping("/profile")
     fun profile() = mapOf(
-        "build.env" to environment.activeProfiles,
-        "image.version" to imageVersion
+            "build.env" to environment.activeProfiles,
+            "image.version" to imageVersion
     )
 }

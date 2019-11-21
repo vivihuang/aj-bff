@@ -29,9 +29,14 @@ Spring Boot、Gradle、Docker、Detekt、Jacoco(plugin)
 
 ## Run
 - run locally
-```
+```bash
 ./gradlew bootRun
 ```
+
+### API examples
+
+- `/api/message/rasa`
+- `/api/message/dialog-flow`
 
 ## Build Docker Image
 - package spring boot
