@@ -1,2 +1,4 @@
 rasa:
   url: http://rasa:5005
+dialog-flow:
+  url: http://dialog-flow:8080
